@@ -1,20 +1,47 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    // Kod qaysi JavaScript versiyasiga o'giriladi
+    "target": "ES2020",
+
+    // TypeScript qaysi tillar kutubxonalarini "biladi" (brauzer DOM, yangi JS)
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+
+    // .js fayllarni ham loyihada ishlatishga ruxsat
     "allowJs": true,
+
+    // node_modules ichidagi .d.ts fayllarni tekshirmaydi (tezroq, kamroq xato)
     "skipLibCheck": true,
+
+    // Qattiq tekshiruv: any, null kabi xatolarni ushlaydi
+    "strict": true,
+
+    // import React from "react" kabi yozuvlar ishlashi uchun
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+
+    // Zamonaviy import/export (ESM)
+    "module": "ESNext",
+
+    // Importlarni qanday qidirishi. TS 4.9 uchun "node" kerak ("bundler" emas)
     "moduleResolution": "node",
+  "ignoreDeprecations": "6.0",
+
+    // .json fayllarni import qilishga ruxsat
     "resolveJsonModule": true,
+
+    // Har fayl alohida modul bo'lishi shart (CRA/Babel talabi)
     "isolatedModules": true,
+
+    // TS fayl chiqarmaydi, faqat tekshiradi (build'ni react-scripts qiladi)
     "noEmit": true,
-    "jsx": "react-jsx"
+
+    // JSX uchun alohida "import React" yozish shart emas
+    "jsx": "react-jsx",
+
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true
   },
+
+  // Faqat src papkadagi fayllarni tekshiradi
   "include": ["src"]
 }
