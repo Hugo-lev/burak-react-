@@ -10,6 +10,8 @@ import { UserPage } from "./screens/userPage";
 import { HomeNavbar } from "./components/headers/HomeNavbar";
 import { OtherNavbar } from "./components/headers/OtherNavbar";
 import { Footer } from "./components/footer";
+import "../css/navbar.css";
+import { HelpPage } from "./screens/helpPage/helpPage";
 
 function App() {
   const location = useLocation();
@@ -25,6 +27,7 @@ function App() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/orders" element={<OrdersPage />} />
         <Route path="/member-page" element={<UserPage />} />
+        <Route path="/help" element={<HelpPage />} />
         <Route path="/" element={<HomePage />} />
       </Routes>
       <Footer />
