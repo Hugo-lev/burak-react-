@@ -1,28 +1,43 @@
 import React from "react";
+import { Container } from "@mui/material";
 import "../css/app.css";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
-// Yuqorida yozgan RippleBadge komponentimiz
-import { RippleBadge } from "./MaterialTheme/styled";
+// v6: Switch yo'q, uning o'rniga Routes ishlatiladi
+import { Link, Route, Routes } from "react-router-dom";
+import { About } from "./screens/About";
+import { Users } from "./screens/Users";
 
 function App() {
   return (
-    <Container sx={{ background: "orange" }}>
-      <Stack direction={"column"}>
-        <Box sx={{ my: 4 }}>
-          <Typography variant="h4" component={"h4"}>
-            Create React App on TypeScript with REDUX
-          </Typography>
-        </Box>
+    <div>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/users">Users</Link>
+          </li>
+        </ul>
+      </nav>
 
-        <Box>
-          {/* badgeContent={4}: badge ichida "4" raqami chiqadi */}
-          <RippleBadge badgeContent={4}>
-            <Button variant="contained">Contained</Button>
-          </RippleBadge>
-        </Box>
-      </Stack>
-    </Container>
+      {/* Routes: URL ga mos keladigan BITTA Route ni tanlaydi.
+          v6 eng aniq moslikni o'zi topadi, shuning uchun tartib muhim emas */}
+      <Routes>
+        {/* v6: komponent Route ichiga bola qilib emas,
+            element={...} prop sifatida beriladi */}
+        <Route path="/about" element={<About />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </div>
   );
+}
+
+function Home() {
+  return <Container>Home</Container>;
 }
 
 export default App;
