@@ -1,3 +1,4 @@
+/* ===== Butun navbar bloki (fon rasmi bilan) ===== */
 .home-navbar {
   width: 100%;
   height: 773px;
@@ -8,30 +9,79 @@
   background-size: cover;
   background-position: center;
 }
+
+/* ===== Konteyner: tepadan 55px pastga tushirilgan ===== */
+.home-navbar .navbar-container {
+  margin-top: 55px;
+  height: 642px;
+}
+
+/* ===== Menyu qatori ===== */
+.home-navbar .navbar-container .menu {
+  height: 50px;
+  display: flex;
+  flex-direction: row; /* yonma-yon joylashadi */
+  justify-content: space-between; /* chetlarga yoyadi */
+  align-items: center; /* vertikal markazlash */
+}
+
+/* ===== Logo o'lchami ===== */
+.home-navbar .navbar-container .menu .brand-logo {
+  width: 125px;
+  height: 30px;
+}
+
+/* ===== Havolalar bloki ===== */
+.home-navbar .navbar-container .menu .links {
+  min-width: 700px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ===== Login tugmasi (CSS da qiymat qo'shtirnoqsiz!) ===== */
+.home-navbar .navbar-container .menu .links .login-button {
+  background: #3776cc;
+  color: #f8f8ff;
+}
+
+/* ===== Foydalanuvchi avatari (qo'shtirnoqsiz!) ===== */
+.home-navbar .navbar-container .menu .links .user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* mukammal doira */
+  object-fit: cover; /* rasm cho'zilib ketmasligi uchun */
+  cursor: pointer; /* bosiladigan ekanini ko'rsatadi */
+}
+
+/* ===== Havolalar: tagchiziqsiz, oq rang ===== */
 .home-navbar a {
   text-decoration: none;
 }
 .home-navbar .hover-line a {
   color: #f8f8ff;
+  position: relative; /* z-index ishlashi uchun position kerak */
   z-index: 100;
 }
+
+/* ===== Faol sahifa: doimiy chiziq (keraksiz content olib tashlandi) ===== */
 .home-navbar .underline {
   display: block;
-  content: "";
   border-bottom: solid 2px #d7b686;
 }
+
+/* ===== Hover chizig'i: boshida kengligi 0 ===== */
 .home-navbar .hover-line:after {
   display: block;
-  content: "";
+  content: ""; /* ::after da content SHART */
   border-bottom: solid 2px #d7b686;
-  transform: scaleX(0);
-  transition: transform 250ms ease-in-out;
+  transform: scaleX(0); /* boshida ko'rinmaydi */
+  transform-origin: 0% 50%; /* chapdan o'ngga o'sadi */
+  transition: transform 250ms ease-in-out; /* silliq animatsiya */
 }
 
+/* Sichqoncha ustiga kelganda chiziq to'liq kengayadi */
 .home-navbar .hover-line:hover:after {
   transform: scaleX(1);
-}
-
-.home-navbar div.hover-line:after {
-  transform-origin: 0% 50%;
 }

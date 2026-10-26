@@ -1,107 +1,95 @@
 import { Box, Button, Container, Stack } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import "../../../css/navbar.css"; // to'g'rilangan yo'l
+
+// Faol havola uchun klass beruvchi funksiya.
+// Avval har bir NavLink da takrorlanardi, endi bir marta yozildi.
+// isActive: sahifa manzili havolaga mos kelsa true bo'ladi.
+const activeClass = ({ isActive }: { isActive: boolean }) =>
+  isActive ? "underline" : undefined;
 
 export function HomeNavbar() {
-  const authMember = null;
+  // Vaqtincha: foydalanuvchi tizimga kirganmi? (keyin haqiqiy holatga ulanadi)
+  const authMember = true;
 
   return (
+    // Butun navbarni o'rab turuvchi tashqi blok (fon rasmi shu yerda)
     <div className="home-navbar">
-      <Container sx={{ mt: "55px", height: "642px" }}>
-        <Stack
-          sx={{ height: "50px" }}
-          flexDirection={"row"}
-          justifyContent={"space-between"}
-          alignItems={"center"}
-        >
+      {/* Kontentni markazlashtiradi va kengligini cheklaydi */}
+      <Container className="navbar-container">
+        {/* Menyu qatori: chapda logo, o'ngda havolalar */}
+        <Stack className="menu">
+          {/* LOGO: bosilsa bosh sahifaga olib boradi */}
           <Box>
             <NavLink to="/">
+              {/* src qo'shildi (o'z logotip yo'lingizni yozing), alt ham bor */}
               <img
-                style={{ width: "125px", height: "30px" }}
+                className="brand-logo"
                 src="/icons/burak.svg"
+                alt="Burak logo"
               />
             </NavLink>
           </Box>
-          <Stack
-            flexDirection={"row"}
-            justifyContent={"space-between"}
-            minWidth={"700px"}
-            alignItems={"center"}
-          >
-            <Box className={"hover-line"}>
-              <NavLink
-                to="/"
-                end
-                className={({ isActive }) =>
-                  isActive ? "underline" : undefined
-                }
-              >
+
+          {/* HAVOLALAR bloki */}
+          <Stack className="links">
+            <Box className="hover-line">
+              {/* end: faqat aynan "/" bo'lganda faol bo'lsin */}
+              <NavLink to="/" end className={activeClass}>
                 Home
               </NavLink>
             </Box>
-            <Box className={"hover-line"}>
-              <NavLink
-                to="/products"
-                end
-                className={({ isActive }) =>
-                  isActive ? "underline" : undefined
-                }
-              >
+
+            <Box className="hover-line">
+              <NavLink to="/products" className={activeClass}>
                 Products
               </NavLink>
             </Box>
+
+            {/* Orders va My Page faqat tizimga kirgan foydalanuvchiga ko'rinadi */}
             {authMember ? (
-              <Box className={"hover-line"}>
-                <NavLink
-                  to="/orders"
-                  end
-                  className={({ isActive }) =>
-                    isActive ? "underline" : undefined
-                  }
-                >
+              <Box className="hover-line">
+                <NavLink to="/orders" className={activeClass}>
                   Orders
                 </NavLink>
               </Box>
             ) : null}
+
             {authMember ? (
-              <Box className={"hover-line"}>
-                <NavLink
-                  to="/member-page"
-                  end
-                  className={({ isActive }) =>
-                    isActive ? "underline" : undefined
-                  }
-                >
+              <Box className="hover-line">
+                <NavLink to="/member-page" className={activeClass}>
                   My Page
                 </NavLink>
               </Box>
             ) : null}
-            <Box className={"hover-line"}>
-              <NavLink
-                to="/help"
-                end
-                className={({ isActive }) =>
-                  isActive ? "underline" : undefined
-                }
-              >
+
+            <Box className="hover-line">
+              <NavLink to="/help" className={activeClass}>
                 Help
               </NavLink>
             </Box>
-            {/* BASKET */}
 
+            {/* BASKET (savat) keyinroq shu yerga qo'shiladi */}
+
+            {/* Kirmagan bo'lsa Login tugmasi, kirgan bo'lsa avatar */}
             {!authMember ? (
               <Box>
-                <Button
-                  variant="contained"
-                  style={{ background: "#3776CC", color: "#f8f8ff" }}
-                >
+                <Button variant="contained" className="login-button">
                   Login
                 </Button>
               </Box>
             ) : (
-              <img />
+              <img
+                className="user-avatar"
+                src="/icons/default-user.svg"
+                alt="User avatar"
+                aria-haspopup="true" // bosilganda menyu ochilishini bildiradi
+              />
             )}
           </Stack>
         </Stack>
+
+        {/* Hozircha vaqtincha matn, keyin banner matni bilan almashtirasiz */}
         <Stack>DETAIL</Stack>
       </Container>
     </div>

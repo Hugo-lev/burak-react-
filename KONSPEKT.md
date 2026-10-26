@@ -89,9 +89,9 @@ import { red } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
-    primary:   { main: "#556cd6" },  // asosiy rang
-    secondary: { main: "#19857b" },  // ikkinchi rang
-    error:     { main: red.A400 },   // xato rangi
+    primary: { main: "#556cd6" }, // asosiy rang
+    secondary: { main: "#19857b" }, // ikkinchi rang
+    error: { main: red.A400 }, // xato rangi
   },
 });
 
@@ -109,15 +109,23 @@ import { RippleBadge } from "./MaterialTheme/styled";
 
 function App() {
   return (
-    <Container maxWidth="sm">                 {/* markazga joylaydi, kengligi cheklangan */}
-      <Stack flexDirection={"column"}>        {/* ichidagilarni ustun qilib tizadi */}
-        <Box sx={{ my: 4 }}>                  {/* sx = qisqa uslub, my = tepa-past bo'shliq */}
+    <Container maxWidth="sm">
+      {" "}
+      {/* markazga joylaydi, kengligi cheklangan */}
+      <Stack flexDirection={"column"}>
+        {" "}
+        {/* ichidagilarni ustun qilib tizadi */}
+        <Box sx={{ my: 4 }}>
+          {" "}
+          {/* sx = qisqa uslub, my = tepa-past bo'shliq */}
           <Typography variant="h4" component={"h4"}>
             Create React App on TypeScript with REDUX
           </Typography>
         </Box>
         <Box>
-          <RippleBadge badgeContent={4}>      {/* tugma burchagida "4" raqami */}
+          <RippleBadge badgeContent={4}>
+            {" "}
+            {/* tugma burchagida "4" raqami */}
             <Button variant="contained">Contained</Button>
           </RippleBadge>
         </Box>
@@ -140,9 +148,13 @@ export const RippleBadge = styled(Badge)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.main,
     color: "#fff",
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    "&::after": {                             // badge ortidagi "to'lqin" halqa
+    "&::after": {
+      // badge ortidagi "to'lqin" halqa
       position: "absolute",
-      top: 0, left: 0, width: "100%", height: "100%",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
       borderRadius: "50%",
       border: `1px solid ${theme.palette.secondary.main}`,
       animation: "ripple 1.2s infinite ease-in-out",
@@ -150,7 +162,7 @@ export const RippleBadge = styled(Badge)(({ theme }) => ({
     },
   },
   "@keyframes ripple": {
-    "0%":   { transform: "scale(.8)",  opacity: 1 },
+    "0%": { transform: "scale(.8)", opacity: 1 },
     "100%": { transform: "scale(2.4)", opacity: 0 },
   },
 }));
@@ -198,18 +210,18 @@ export const RippleBadge = styled(Badge)(({ theme }) => ({
 
 ## 4. Uchragan xatolar va yechimlari
 
-| Xato | Sababi | Yechimi |
-|---|---|---|
-| `Could not find a required file. Name: index.js` | `index.tsx` `src` ichida emas | `index.tsx` ni `src` ichiga ko'chirish |
-| `moduleResolution: bundler` xatosi | TypeScript 4.9 bilan mos emas | `"moduleResolution": "node"` |
-| `import theme from "./css/index.css"` | CSS faylni theme sifatida import qilingan | `createTheme` bilan `theme.ts` yozish |
-| MUI topilmadi | Kutubxona o'rnatilmagan | `yarn add @mui/material @emotion/react @emotion/styled` |
-| `Cannot GET /` | Port 3000 da boshqa (Express) server ishlayapti | Boshqa serverni to'xtatish yoki `.env` ga `PORT=3001` |
-| `$ node server.js` chiqdi | `package.json` yo'q, yarn yuqoridagi papkadan boshqasini topdi | `package.json` ni qayta tiklash, `start` = `react-scripts start` |
-| `Could not find index.html` | `public/index.html` yo'q yoki OneDrive'da bulutda | Faylni yaratish / "Always keep on this device" |
-| `JavaScript heap out of memory` | MUI 9 tiplari TypeScript 4.9 uchun og'ir | `yarn add @mui/material@^5.15.0` |
-| `~/node_modules/.../tsconfig.json` da qizil chiziq | Kutubxonaning ichki fayli | E'tibor bermaslik, tahrirlamaslik |
-| `ReactDOM.render` chizilgan | React 18 da eskirgan | Ishlayveradi, xohlasa `createRoot` ga o'tish |
+| Xato                                               | Sababi                                                         | Yechimi                                                          |
+| -------------------------------------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `Could not find a required file. Name: index.js`   | `index.tsx` `src` ichida emas                                  | `index.tsx` ni `src` ichiga ko'chirish                           |
+| `moduleResolution: bundler` xatosi                 | TypeScript 4.9 bilan mos emas                                  | `"moduleResolution": "node"`                                     |
+| `import theme from "./css/index.css"`              | CSS faylni theme sifatida import qilingan                      | `createTheme` bilan `theme.ts` yozish                            |
+| MUI topilmadi                                      | Kutubxona o'rnatilmagan                                        | `yarn add @mui/material @emotion/react @emotion/styled`          |
+| `Cannot GET /`                                     | Port 3000 da boshqa (Express) server ishlayapti                | Boshqa serverni to'xtatish yoki `.env` ga `PORT=3001`            |
+| `$ node server.js` chiqdi                          | `package.json` yo'q, yarn yuqoridagi papkadan boshqasini topdi | `package.json` ni qayta tiklash, `start` = `react-scripts start` |
+| `Could not find index.html`                        | `public/index.html` yo'q yoki OneDrive'da bulutda              | Faylni yaratish / "Always keep on this device"                   |
+| `JavaScript heap out of memory`                    | MUI 9 tiplari TypeScript 4.9 uchun og'ir                       | `yarn add @mui/material@^5.15.0`                                 |
+| `~/node_modules/.../tsconfig.json` da qizil chiziq | Kutubxonaning ichki fayli                                      | E'tibor bermaslik, tahrirlamaslik                                |
+| `ReactDOM.render` chizilgan                        | React 18 da eskirgan                                           | Ishlayveradi, xohlasa `createRoot` ga o'tish                     |
 
 ---
 
