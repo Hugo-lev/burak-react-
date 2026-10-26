@@ -90,7 +90,26 @@ export function HomeNavbar() {
         </Stack>
 
         {/* Hozircha vaqtincha matn, keyin banner matni bilan almashtirasiz */}
-        <Stack>DETAIL</Stack>
+        <Stack className={"header-frame"}>
+          <Stack className={"detail"}>
+            <Box className={"head-main-txt"}>
+              World's Most Delicious Cousine
+            </Box>
+            <Box className={"wel-txt"}>The Choice, not just a choice</Box>
+            <Box className={"service-txt"}>24 hours service</Box>
+            <Box className={"signup"}>
+              {!authMember ? (
+                <Button
+                  variant={"contained"}
+                  className={"signup-botton"}
+                ></Button>
+              ) : null}
+            </Box>
+          </Stack>
+          <Box className="logo-frame">
+            <Box className="logo-img" />
+          </Box>
+        </Stack>
       </Container>
     </div>
   );
