@@ -1,6 +1,7 @@
 import { Box, Button, Container, Stack } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import "../../../css/navbar.css"; // to'g'rilangan yo'l
+import Basket from "./Basket";
 
 // Faol havola uchun klass beruvchi funksiya.
 // Avval har bir NavLink da takrorlanardi, endi bir marta yozildi.
@@ -8,7 +9,7 @@ import "../../../css/navbar.css"; // to'g'rilangan yo'l
 const activeClass = ({ isActive }: { isActive: boolean }) =>
   isActive ? "underline" : undefined;
 
-export function HomeNavbar() {
+export default function HomeNavbar() {
   // Vaqtincha: foydalanuvchi tizimga kirganmi? (keyin haqiqiy holatga ulanadi)
   const authMember = null;
 
@@ -70,7 +71,7 @@ export function HomeNavbar() {
             </Box>
 
             {/* BASKET (savat) keyinroq shu yerga qo'shiladi */}
-
+            <Basket />
             {/* Kirmagan bo'lsa Login tugmasi, kirgan bo'lsa avatar */}
             {!authMember ? (
               <Box>

@@ -8,7 +8,7 @@ import "../../../css/navbar.css"; // to'g'rilangan yo'l
 const activeClass = ({ isActive }: { isActive: boolean }) =>
   isActive ? "underline" : undefined;
 
-export function OtherNavbar() {
+export default function OtherNavbar() {
   // Vaqtincha: foydalanuvchi tizimga kirganmi? (keyin haqiqiy holatga ulanadi)
   const authMember = null;
 
