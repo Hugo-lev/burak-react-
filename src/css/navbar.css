@@ -165,3 +165,84 @@
   background-repeat: no-repeat;
   filter: invert(25%);
 }
+/* ===== Butun navbar bloki (fon rasmi bilan) ===== */
+.other-navbar {
+  width: 100%;
+  height: 773px;
+  display: flex;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+    url("/public/img/banner.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+/* ===== Konteyner: tepadan 55px pastga tushirilgan ===== */
+.other-navbar.navbar-container {
+  margin-top: 55px;
+}
+
+/* ===== Menyu qatori ===== */
+.other-navbar .navbar-container .menu {
+  height: 50px;
+  display: flex;
+  flex-direction: row; /* yonma-yon joylashadi */
+  justify-content: space-between; /* chetlarga yoyadi */
+  align-items: center; /* vertikal markazlash */
+}
+
+/* ===== Logo o'lchami ===== */
+.other-navbar .navbar-container .menu .brand-logo {
+  width: 125px;
+  height: 30px;
+}
+
+/* ===== Havolalar bloki ===== */
+.other-navbar .navbar-container .menu .links {
+  min-width: 700px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ===== Login tugmasi (CSS da qiymat qo'shtirnoqsiz!) ===== */
+.other-navbar .navbar-container .menu .links .login-button {
+  background: #3776cc;
+  color: #f8f8ff;
+}
+
+/* ===== Foydalanuvchi avatari (qo'shtirnoqsiz!) ===== */
+.other-navbar .navbar-container .menu .links .user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* mukammal doira */
+  object-fit: cover; /* rasm cho'zilib ketmasligi uchun */
+  cursor: pointer; /* bosiladigan ekanini ko'rsatadi */
+}
+
+/* ===== Havolalar: tagchiziqsiz, oq rang ===== */
+.other-navbara {
+  text-decoration: none;
+}
+.other-navbar .hover-line a {
+  color: #f8f8ff;
+  position: relative; /* z-index ishlashi uchun position kerak */
+  z-index: 100;
+}
+
+/* ===== Faol sahifa: doimiy chiziq (keraksiz content olib tashlandi) ===== */
+.other-navbar .underline {
+  display: block;
+  border-bottom: solid 2px #d7b686;
+}
+
+/* ===== Hover chizig'i: boshida kengligi 0 ===== */
+.other-navbar .hover-line:after {
+  display: block;
+  content: ""; /* ::after da content SHART */
+  border-bottom: solid 2px #d7b686;
+  transform: scaleX(0); /* boshida ko'rinmaydi */
+  transform-origin: 0% 50%; /* chapdan o'ngga o'sadi */
+  transition: transform 250ms ease-in-out; /* silliq animatsiya */
+}

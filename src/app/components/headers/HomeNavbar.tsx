@@ -10,7 +10,7 @@ const activeClass = ({ isActive }: { isActive: boolean }) =>
 
 export function HomeNavbar() {
   // Vaqtincha: foydalanuvchi tizimga kirganmi? (keyin haqiqiy holatga ulanadi)
-  const authMember = true;
+  const authMember = null;
 
   return (
     // Butun navbarni o'rab turuvchi tashqi blok (fon rasmi shu yerda)
