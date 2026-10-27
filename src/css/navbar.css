@@ -1,37 +1,28 @@
-/* ===== Butun navbar bloki (fon rasmi bilan) ===== */
 .home-navbar {
   width: 100%;
   height: 773px;
   display: flex;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-    url("/public/img/banner.webp");
+  background: url("/public/img/banner.webp");
   background-size: cover;
-  background-position: center;
 }
 
-/* ===== Konteyner: tepadan 55px pastga tushirilgan ===== */
 .home-navbar .navbar-container {
   margin-top: 55px;
   height: 642px;
 }
 
-/* ===== Menyu qatori ===== */
 .home-navbar .navbar-container .menu {
   height: 50px;
-  display: flex;
-  flex-direction: row; /* yonma-yon joylashadi */
-  justify-content: space-between; /* chetlarga yoyadi */
-  align-items: center; /* vertikal markazlash */
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* ===== Logo o'lchami ===== */
 .home-navbar .navbar-container .menu .brand-logo {
   width: 125px;
   height: 30px;
 }
 
-/* ===== Havolalar bloki ===== */
 .home-navbar .navbar-container .menu .links {
   min-width: 700px;
   display: flex;
@@ -40,51 +31,48 @@
   align-items: center;
 }
 
-/* ===== Login tugmasi (CSS da qiymat qo'shtirnoqsiz!) ===== */
 .home-navbar .navbar-container .menu .links .login-button {
   background: #3776cc;
   color: #f8f8ff;
 }
 
-/* ===== Foydalanuvchi avatari (qo'shtirnoqsiz!) ===== */
-.home-navbar .navbar-container .menu .links .user-avatar {
+.home-navbar .navbar-container .menu .user-avatar {
   width: 50px;
   height: 50px;
-  border-radius: 50%; /* mukammal doira */
-  object-fit: cover; /* rasm cho'zilib ketmasligi uchun */
-  cursor: pointer; /* bosiladigan ekanini ko'rsatadi */
+  border-radius: 24px;
 }
 
-/* ===== Havolalar: tagchiziqsiz, oq rang ===== */
 .home-navbar a {
   text-decoration: none;
 }
+
 .home-navbar .hover-line a {
   color: #f8f8ff;
-  position: relative; /* z-index ishlashi uchun position kerak */
   z-index: 100;
 }
 
-/* ===== Faol sahifa: doimiy chiziq (keraksiz content olib tashlandi) ===== */
 .home-navbar .underline {
   display: block;
+  content: "";
   border-bottom: solid 2px #d7b686;
 }
 
-/* ===== Hover chizig'i: boshida kengligi 0 ===== */
 .home-navbar .hover-line:after {
   display: block;
-  content: ""; /* ::after da content SHART */
+  content: "";
   border-bottom: solid 2px #d7b686;
-  transform: scaleX(0); /* boshida ko'rinmaydi */
-  transform-origin: 0% 50%; /* chapdan o'ngga o'sadi */
-  transition: transform 250ms ease-in-out; /* silliq animatsiya */
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
 }
 
-/* Sichqoncha ustiga kelganda chiziq to'liq kengayadi */
 .home-navbar .hover-line:hover:after {
   transform: scaleX(1);
 }
+
+.home-navbar div.hover-line:after {
+  transform-origin: 0% 50%;
+}
+
 .home-navbar .navbar-container .header-frame {
   margin-top: 142px;
   height: 462px;
@@ -110,6 +98,7 @@
   letter-spacing: -0.75px;
   color: #f8f8ff;
 }
+
 .home-navbar .navbar-container .header-frame .detail .wel-txt {
   width: 510px;
   height: 42px;
@@ -126,6 +115,7 @@
   margin-top: 23px;
   width: 153px;
   height: 23px;
+
   font-family: "Roboto Serif";
   font-size: 20px;
   font-style: normal;
@@ -134,6 +124,7 @@
   letter-spacing: -0.3px;
   color: #d5d5d5;
 }
+
 .home-navbar .navbar-container .detail .signup {
   margin-top: 73px;
 }
@@ -142,7 +133,7 @@
   width: 210px;
   height: 60px;
   border-radius: 4px;
-  background: #1976d2;
+  background-color: #1976d2;
   text-align: center;
   font-family: Poppins;
   font-size: 17px;
@@ -151,10 +142,11 @@
   line-height: normal;
   color: #f8f8ff;
 }
+
 .home-navbar .navbar-container .logo-frame {
   margin-top: 43px;
   width: 690px;
-  height: 419px;
+  height: 419;
 }
 
 .home-navbar .navbar-container .logo-frame .logo-img {
@@ -165,39 +157,32 @@
   background-repeat: no-repeat;
   filter: invert(25%);
 }
-/* ===== Butun navbar bloki (fon rasmi bilan) ===== */
+
 .other-navbar {
   width: 100%;
-  height: 773px;
+  height: 400px;
   display: flex;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-    url("/public/img/banner.webp");
+  background: url("/public/img/banner.webp");
   background-size: cover;
-  background-position: center;
 }
 
-/* ===== Konteyner: tepadan 55px pastga tushirilgan ===== */
-.other-navbar.navbar-container {
+.other-navbar .navbar-container {
   margin-top: 55px;
+  height: 642px;
 }
 
-/* ===== Menyu qatori ===== */
 .other-navbar .navbar-container .menu {
   height: 50px;
-  display: flex;
-  flex-direction: row; /* yonma-yon joylashadi */
-  justify-content: space-between; /* chetlarga yoyadi */
-  align-items: center; /* vertikal markazlash */
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* ===== Logo o'lchami ===== */
 .other-navbar .navbar-container .menu .brand-logo {
   width: 125px;
   height: 30px;
 }
 
-/* ===== Havolalar bloki ===== */
 .other-navbar .navbar-container .menu .links {
   min-width: 700px;
   display: flex;
@@ -206,138 +191,179 @@
   align-items: center;
 }
 
-/* ===== Login tugmasi (CSS da qiymat qo'shtirnoqsiz!) ===== */
 .other-navbar .navbar-container .menu .links .login-button {
   background: #3776cc;
   color: #f8f8ff;
 }
 
-/* ===== Foydalanuvchi avatari (qo'shtirnoqsiz!) ===== */
-.other-navbar .navbar-container .menu .links .user-avatar {
+.other-navbar .navbar-container .menu .user-avatar {
   width: 50px;
   height: 50px;
-  border-radius: 50%; /* mukammal doira */
-  object-fit: cover; /* rasm cho'zilib ketmasligi uchun */
-  cursor: pointer; /* bosiladigan ekanini ko'rsatadi */
+  border-radius: 24px;
 }
 
-/* ===== Havolalar: tagchiziqsiz, oq rang ===== */
-.other-navbara {
+.other-navbar a {
   text-decoration: none;
 }
+
 .other-navbar .hover-line a {
   color: #f8f8ff;
-  position: relative; /* z-index ishlashi uchun position kerak */
   z-index: 100;
 }
 
-/* ===== Faol sahifa: doimiy chiziq (keraksiz content olib tashlandi) ===== */
 .other-navbar .underline {
   display: block;
+  content: "";
   border-bottom: solid 2px #d7b686;
 }
 
-/* ===== Hover chizig'i: boshida kengligi 0 ===== */
 .other-navbar .hover-line:after {
-  display: block;
-  content: ""; /* ::after da content SHART */
-  border-bottom: solid 2px #d7b686;
-  transform: scaleX(0); /* boshida ko'rinmaydi */
-  transform-origin: 0% 50%; /* chapdan o'ngga o'sadi */
-  transition: transform 250ms ease-in-out; /* silliq animatsiya */
-}
-
-.foot-desc-txt {
-  margin-top: 22px;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 34px;
-  color: #e3c08d;
-}
-
-.sns-context {
-  margin-top: 17px;
-  width: 137px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.foot-category-title {
-  width: 106px;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 34px;
-  color: #c5c8c9;
-}
-
-.foot-category-link {
-  margin-top: 20px;
-  height: 170px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 170px;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 34px;
-}
-
-.foot-category-link a {
-  color: #e3c08d;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.find-us {
-  display: flex;
-  flex-direction: row;
-}
-
-.find-us span {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 34px;
-  color: #c5c8c9;
-}
-
-.find-us div {
-  margin-left: 10px;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 34px;
-  color: #e3c08d;
-}
-
-.copyright-txt {
-  margin-top: 17px;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 34px;
-  color: #e3c08d;
-}
-
-.foot-category-title:after {
   display: block;
   content: "";
   border-bottom: solid 2px #d7b686;
   transform: scaleX(0);
   transition: transform 250ms ease-in-out;
+}
+
+.other-navbar .hover-line:hover:after {
+  transform: scaleX(1);
+}
+
+.other-navbar div.hover-line:after {
   transform-origin: 0% 50%;
 }
 
-.foot-category-title:hover:after {
-  transform: scaleX(1);
+/* BASKET */
+
+.basket-frame {
+  position: relative;
+  padding: 10px 4px 0px 4px;
+  width: 450px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  background: #f8f8ff;
+  border-radius: 16px;
+}
+
+.basket-frame .all-check-box {
+  padding: 0px 6px;
+  width: 100%;
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #d7b586;
+  border-width: 1px 0px;
+  border-style: solid;
+  border-color: #343434;
+}
+
+.basket-frame .basket-info-box {
+  position: relative;
+  margin-top: 6px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.basket-info-box .product-img {
+  width: 60px;
+  height: 60px;
+  filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 29px;
+}
+
+.basket-info-box .product-name {
+  margin-left: 11px;
+  width: 185px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  color: #000000;
+}
+
+.basket-info-box .product-price {
+  width: 80px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 22px;
+  color: #ae0000;
+}
+
+.basket-info-box
+  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 6.5px 14px;
+}
+
+.basket-info-box .css-ece9u5 {
+  min-width: 72px;
+}
+
+.basket-frame .cancel-btn {
+  position: absolute;
+  top: 33%;
+  right: 2%;
+  cursor: pointer;
+}
+
+.basket-frame .basket-order {
+  margin-top: 10px;
+  width: 100%;
+  height: 64px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.basket-order .price {
+  width: 200px;
+  display: flex;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  color: #000000;
+}
+
+.basket-frame .orders-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.basket-frame .orders-wrapper::-webkit-scrollbar {
+  width: 10px;
+}
+
+.basket-frame .orders-wrapper::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 5px;
+}
+
+.basket-frame .orders-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.basket-frame .orders-main-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin-top: 10px;
+  width: 100%;
+  height: 260px;
+  display: flex;
+  flex-direction: column;
 }

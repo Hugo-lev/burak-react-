@@ -10,8 +10,9 @@ import "../../../css/home.css";
 export default function HomePage() {
   return (
     <div className="homepage">
-      <PopularDishes />
       <Statistics />
+      <PopularDishes />
+
       <NewDishes />
       <Advertisement />
       <ActiveUsers />
