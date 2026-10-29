@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Box, Button, Stack } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -5,11 +6,11 @@ import Badge from "@mui/material/Badge";
 import Menu from "@mui/material/Menu";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
+ 
 export default function Basket() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
+ 
   /** HANDLERS **/
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
@@ -17,7 +18,7 @@ export default function Basket() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+ 
   return (
     <Box className={"hover-line"}>
       <IconButton
@@ -38,29 +39,34 @@ export default function Basket() {
         open={open}
         onClose={handleClose}
         // onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            "&:before": {
-              content: '""',
-              display: "block",
-              position: "absolute",
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: "background.paper",
-              transform: "translateY(-50%) rotate(45deg)",
-              zIndex: 0,
+ 
+        /* TUZATILDI: eski "PaperProps={{ ... }}" o'rniga yangi "slotProps={{ paper: { ... } }}".
+           Ichidagi elevation va sx o'sha-o'sha, faqat "paper:" ichiga o'ralgan */
+        slotProps={{
+          paper: {
+            elevation: 0,
+            sx: {
+              overflow: "visible",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+              mt: 1.5,
+              "& .MuiAvatar-root": {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1,
+              },
+              "&:before": {
+                content: '""',
+                display: "block",
+                position: "absolute",
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: "background.paper",
+                transform: "translateY(-50%) rotate(45deg)",
+                zIndex: 0,
+              },
             },
           },
         }}
@@ -71,7 +77,7 @@ export default function Basket() {
           <Box className={"all-check-box"}>
             <div>Cart is empty!</div>
           </Box>
-
+ 
           <Box className={"orders-main-wrapper"}>
             <Box className={"orders-wrapper"}>
               <Box className={"basket-info-box"}>
