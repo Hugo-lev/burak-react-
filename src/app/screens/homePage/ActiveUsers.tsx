@@ -5,10 +5,10 @@ import CardOverflow from "@mui/joy/CardOverflow";
 import CardCover from "@mui/joy/CardCover";
 
 const activeUsers = [
-  { memberNick: "Martin", memberImage: "/img/martin.webp" },
   { memberNick: "Robin", memberImage: "/img/justin.webp" },
   { memberNick: "Ross", memberImage: "/img/rose.webp" },
   { memberNick: "Nusret", memberImage: "/img/nusret.webp" },
+  { memberNick: "Micheal", memberImage: "/img/martin.webp" },
 ];
 
 export default function ActiveUsers() {

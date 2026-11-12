@@ -1,78 +1,66 @@
-import { Box, Button, Container, Stack } from "@mui/material";
+import { Box, Container, Stack, Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import "../../../css/navbar.css"; // to'g'rilangan yo'l
 import Basket from "./Basket";
-
-// Faol havola uchun klass beruvchi funksiya.
-// Avval har bir NavLink da takrorlanardi, endi bir marta yozildi.
-// isActive: sahifa manzili havolaga mos kelsa true bo'ladi.
-const activeClass = ({ isActive }: { isActive: boolean }) =>
-  isActive ? "underline" : undefined;
-
+import { useEffect, useState } from "react";
 export default function HomeNavbar() {
-  // Vaqtincha: foydalanuvchi tizimga kirganmi? (keyin haqiqiy holatga ulanadi)
-  const authMember = null;
+  const authMember = false; // TODO: Replace with actual authentication logic
+  const [count, setCount] = useState<number>(0);
+  const [value, setValue] = useState<boolean>(true);
 
+  useEffect(() => {
+    console.log("componentDidMount"); // DATA FETCH
+    setCount(count + 1);
+
+    return () => {
+      console.log("componentWillUnmount");
+    };
+  }, [value]);
+  /** HANDLERS **/ // TODO: Replace with actual authentication logic
+  const buttonHandler = () => {
+    // setCount(count + 1);
+    setValue(!value);
+  };
   return (
-    // Butun navbarni o'rab turuvchi tashqi blok (fon rasmi shu yerda)
     <div className="home-navbar">
-      {/* Kontentni markazlashtiradi va kengligini cheklaydi */}
       <Container className="navbar-container">
-        {/* Menyu qatori: chapda logo, o'ngda havolalar */}
         <Stack className="menu">
-          {/* LOGO: bosilsa bosh sahifaga olib boradi */}
           <Box>
             <NavLink to="/">
-              {/* src qo'shildi (o'z logotip yo'lingizni yozing), alt ham bor */}
-              <img
-                className="brand-logo"
-                src="/icons/burak.svg"
-                alt="Burak logo"
-              />
+              <img className="brand-logo" src="/icons/burak.svg" />
             </NavLink>
           </Box>
-
-          {/* HAVOLALAR bloki */}
           <Stack className="links">
+            {" "}
             <Box className="hover-line">
-              {/* end: faqat aynan "/" bo'lganda faol bo'lsin */}
-              <NavLink to="/" end className={activeClass}>
+              <NavLink to="/" activeClassName={"underline"}>
                 Home
               </NavLink>
             </Box>
-
             <Box className="hover-line">
-              <NavLink to="/products" className={activeClass}>
+              <NavLink to="/products" activeClassName={"underline"}>
                 Products
               </NavLink>
             </Box>
-
-            {/* Orders va My Page faqat tizimga kirgan foydalanuvchiga ko'rinadi */}
             {authMember ? (
               <Box className="hover-line">
-                <NavLink to="/orders" className={activeClass}>
+                <NavLink to="/orders" activeClassName={"underline"}>
                   Orders
                 </NavLink>
               </Box>
             ) : null}
-
             {authMember ? (
               <Box className="hover-line">
-                <NavLink to="/member-page" className={activeClass}>
+                <NavLink to="/member-page" activeClassName={"underline"}>
                   My Page
                 </NavLink>
               </Box>
             ) : null}
-
             <Box className="hover-line">
-              <NavLink to="/help" className={activeClass}>
+              <NavLink to="/help" activeClassName={"underline"}>
                 Help
               </NavLink>
             </Box>
-
-            {/* BASKET (savat) keyinroq shu yerga qo'shiladi */}
             <Basket />
-            {/* Kirmagan bo'lsa Login tugmasi, kirgan bo'lsa avatar */}
             {!authMember ? (
               <Box>
                 <Button variant="contained" className="login-button">
@@ -82,33 +70,33 @@ export default function HomeNavbar() {
             ) : (
               <img
                 className="user-avatar"
-                src="/icons/default-user.svg"
-                alt="User avatar"
-                aria-haspopup="true" // bosilganda menyu ochilishini bildiradi
+                src={"/icons/default-user.svg"}
+                aria-haspopup={"true"}
               />
             )}
           </Stack>
         </Stack>
-
-        {/* Hozircha vaqtincha matn, keyin banner matni bilan almashtirasiz */}
         <Stack className={"header-frame"}>
           <Stack className={"detail"}>
             <Box className={"head-main-txt"}>
               World's Most Delicious Cousine
             </Box>
             <Box className={"wel-txt"}>The Choice, not just a choice</Box>
-            <Box className={"service-txt"}>24 hours service</Box>
+            <Box className={"service-txt"}>{count} hours service</Box>
             <Box className={"signup"}>
               {!authMember ? (
                 <Button
                   variant={"contained"}
-                  className={"signup-botton"}
-                ></Button>
+                  className={"signup-button"}
+                  onClick={buttonHandler}
+                >
+                  SIGN UP
+                </Button>
               ) : null}
             </Box>
           </Stack>
-          <Box className="logo-frame">
-            <Box className="logo-img" />
+          <Box className={"logo-frame"}>
+            <div className={"logo-img"}></div>
           </Box>
         </Stack>
       </Container>
