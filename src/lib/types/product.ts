@@ -1,9 +1,11 @@
+// enum'larni import qilamiz
 import {
   ProductCollection,
   ProductSize,
   ProductStatus,
 } from "../enums/product.enum";
 
+// "export" so'zi MUHIM: usiz boshqa fayl (screen.ts) buni ko'ra olmaydi
 export interface Product {
   _id: string;
   productStatus: ProductStatus;
