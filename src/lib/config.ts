@@ -1,6 +1,7 @@
 // ✅ YANGI — .env dagi REACT_APP_API_URL qiymatini o'qiydi.
 // `${...}` = shablon qator (template literal): qiymatni matn ichiga qo'yadi.
 // Natija: "http://localhost:3003"
+// .env dagi qiymatni o'qiymiz. Natija: "http://localhost:3003"
 export const serverApi: string = `${process.env.REACT_APP_API_URL}`;
 
 // ✅ YANGI — Xato xabarlari bir joyda turadi, keyin hamma yerda qayta ishlatiladi.
