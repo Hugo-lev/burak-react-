@@ -1,35 +1,40 @@
+// ✅ YANGI izoh — Kerakli modullar va turlarni import qilamiz
 import { createSlice } from "@reduxjs/toolkit";
-import { HomePageState } from "../../../lib/types/screen"; // 1-commitdagi tip
+import { HomePageState } from "../../../lib/types/screen";
 
-// Boshlang'ich holat: hammasi bo'sh ro'yxat
+// ✅ YANGI izoh — Home page uchun boshlang'ich holat (hammasi bo'sh ro'yxat)
 const initialState: HomePageState = {
   popularDishes: [],
   newDishes: [],
   topUsers: [],
 };
 
+// ✅ YANGI izoh — Home page state uchun slice yaratamiz
+// slice = STOREga ma'lumot YOZISH qoidalari
 const homePageSlice = createSlice({
-  name: "homePage", // slice nomi
+  name: "homePage",
   initialState,
   reducers: {
-    // Reducer = xotirani o'zgartiradigan funksiya
+    // Mashhur taomlarni saqlash uchun reducer
     // action.payload = tashqaridan yuborilgan yangi ma'lumot
     setPopularDishes: (state, action) => {
       state.popularDishes = action.payload;
     },
+    // Yangi taomlarni saqlash uchun reducer
     setNewDishes: (state, action) => {
       state.newDishes = action.payload;
     },
+    // Top foydalanuvchilarni saqlash uchun reducer
     setTopUsers: (state, action) => {
       state.topUsers = action.payload;
     },
   },
 });
 
-// Action'larni tashqariga chiqaramiz (komponentda ishlatish uchun)
+// Action creatorlarni export qilamiz
 export const { setPopularDishes, setNewDishes, setTopUsers } =
   homePageSlice.actions;
 
-// Reducer'ni store'ga ulash uchun eksport qilamiz
+// Reducer ni export qilamiz
 const HomePageReducer = homePageSlice.reducer;
 export default HomePageReducer;

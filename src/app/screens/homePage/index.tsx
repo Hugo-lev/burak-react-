@@ -5,31 +5,89 @@ import NewDishes from "./NewDishes";
 import Advertisement from "./Advertisement";
 import ActiveUsers from "./ActiveUsers";
 import Events from "./Events";
-import "../../../css/home.css";
+// (css importi eskiden shu yerda edi, endi pastga ko'chirildi — pastdan qara)
+
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import { setPopularDishes } from "./slice";
-import { retrievePopularDishes } from "./selector";
+// ❌ ESKI: import { setPopularDishes } from "./slice";
+import { setNewDishes, setPopularDishes, setTopUsers } from "./slice"; // ✅ YANGI: setNewDishes, setTopUsers qo'shildi
+// ❌ ESKI: import { retrievePopularDishes } from "./selector";
+import { retrievePopularDishes, retrieveTopUsers } from "./selector"; // ✅ YANGI: retrieveTopUsers qo'shildi
 import { Product } from "../../../lib/types/product";
+import { Member } from "../../../lib/types/member"; // ✅ YANGI: Member turi
+import ProductService from "../../services/ProductService"; // ✅ YANGI: taomlar servisi
+import { ProductCollection } from "../../../lib/enums/product.enum"; // ✅ YANGI: taom turlari (DISH, DRINK...)
+import MemberService from "../../services/MemberService"; // ✅ YANGI: userlar servisi
+import "../../../css/home.css"; // (oldin yuqorida edi, o'rni almashdi)
 
 /** REDUX SLICE & SELECTOR **/
-function actionDispatch(dispatch: Dispatch) {
-  return {
-    setPopularDishes: (data: Product[]) => dispatch(setPopularDishes(data)),
-  };
-}
+// dispatch = STOREga "mana yangi ma'lumot" deb yuboruvchi funksiya
+const actionDispatch = (dispatch: Dispatch) => ({
+  setPopularDishes: (data: Product[]) => dispatch(setPopularDishes(data)),
+  setNewDishes: (data: Product[]) => dispatch(setNewDishes(data)), // ✅ YANGI
+  setTopUsers: (data: Member[]) => dispatch(setTopUsers(data)), // ✅ YANGI
+});
 
 const popularDishesRetriever = createSelector(
   retrievePopularDishes,
   (popularDishes) => ({ popularDishes }),
 );
+// ✅ YANGI: STOREdan topUsers ni o'qish uchun
+const topUsersRetriever = createSelector(retrieveTopUsers, (topUsers) => ({
+  topUsers,
+}));
 
 export default function HomePage() {
-  const { setPopularDishes } = actionDispatch(useDispatch());
+  // ❌ ESKI: const { setPopularDishes } = actionDispatch(useDispatch());
+  const {
+    setPopularDishes,
+    setNewDishes,
+    setTopUsers,
+  } = // ✅ YANGI: 3 ta funksiya olinadi
+    actionDispatch(useDispatch());
   const { popularDishes } = useSelector(popularDishesRetriever);
+  const { topUsers } = useSelector(topUsersRetriever); // ✅ YANGI
 
-  useEffect(() => {}, []);
+  // ❌ ESKI: useEffect(() => {}, []);   ← bo'sh edi
+  // useEffect + [] = "sahifa BIRINCHI marta chizilganda, faqat BIR marta ishga tush"
+  useEffect(() => {
+    // ✅ YANGI — Backend server data fetch => Data
+    const product = new ProductService(); // servis obyektini yaratamiz
+
+    // 1-so'rov: MASHHUR taomlar (eng ko'p ko'rilgan 4 ta)
+    product
+      .getProducts({
+        page: 1, // 1-sahifa
+        limit: 4, // 4 ta taom
+        order: "productViews", // ko'rishlar soni bo'yicha tartib
+        productCollection: ProductCollection.DISH, // faqat "DISH" turi
+      })
+      .then((data) => {
+        // server javob BERGANDA ishlaydi
+        console.log("data passed here:", data);
+        setPopularDishes(data); // javobni STOREga yozamiz
+      })
+      .catch((err) => console.log(err)); // xato bo'lsa konsolga
+
+    // 2-so'rov: YANGI taomlar (eng oxirgi qo'shilgan 4 ta)
+    product
+      .getProducts({
+        page: 1,
+        limit: 4,
+        order: "createdAt", // yaratilgan vaqt bo'yicha
+        productCollection: ProductCollection.DISH,
+      })
+      .then((data) => setNewDishes(data)) // STOREning newDishes qismiga
+      .catch((err) => console.log(err));
+
+    // 3-so'rov: TOP userlar
+    const member = new MemberService(); // userlar servisi
+    member
+      .getTopUsers()
+      .then((data) => setTopUsers(data)) // STOREning topUsers qismiga
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div className={"homepage"}>
@@ -42,57 +100,3 @@ export default function HomePage() {
     </div>
   );
 }
-// import { useDispatch, useSelector } from "react-redux";
-// import { Dispatch } from "@reduxjs/toolkit";
-// import { createSelector } from "reselect";
-// import { setPopularDishes } from "./slice";
-// import { retrievePopularDishes } from "./selector";
-// import { Product } from "../../../lib/types/product";
-
-// /** REDUX SLICE & SELECTOR **/
-// const actionDispatch = (dispatch: Dispatch) => ({
-//   setPopularDishes: (data: Product[]) => dispatch(setPopularDishes(data)),
-// });
-
-// export default function HomePage() {
-//   const { setPopularDishes } = actionDispatch(useDispatch());
-//   // Selector: Store => Data
-
-//   useEffect(() => {
-//     // Backend server data request => Data
-//     const result = [
-//       {
-//         _id: "65449af869657f6b1f074f86",
-//         productStatus: "PROCESS",
-//         productCollection: "DISH",
-//         productName: "Cutlet",
-//         productPrice: 7,
-//         productLeftCount: 20,
-//         productSize: "NORMAL",
-//         productVolume: 1,
-//         productDesc: "This is our special Cutlet.",
-//         productImages: [
-//           "uploads/products/f93c3c43-864a-4efb-be23-0c8b3c8c43e3.jpeg",
-//         ],
-//         productViews: 2,
-//         createdAt: "2023-11-03T07:02:16.153Z",
-//         updatedAt: "2023-11-18T03:11:01.985Z",
-//         __v: 0,
-//       },
-//     ];
-
-//     // Slice: Data => Store
-//     // @ts-ignore
-//     setPopularDishes(result);
-//   }, []);
-//   return (
-//     <div className={"homepage"}>
-//       <Statistics />
-//       <PopularDishes />
-//       <NewDishes />
-//       <Advertisement />
-//       <ActiveUsers />
-//       <Events />
-//     </div>
-//   );
-// }
