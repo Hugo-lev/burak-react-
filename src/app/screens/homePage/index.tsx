@@ -43,7 +43,7 @@ export default function HomePage() {
   const {
     setPopularDishes,
     setNewDishes,
-    setTopUsers,
+    setTopUsers, 
   } = // ✅ YANGI: 3 ta funksiya olinadi
     actionDispatch(useDispatch());
   const { popularDishes } = useSelector(popularDishesRetriever);

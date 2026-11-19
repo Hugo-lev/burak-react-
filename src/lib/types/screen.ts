@@ -2,18 +2,24 @@ import { Member } from "./member";
 import { Product } from "./product";
 
 /** REACT APP STATE **/
-// Butun ilovaning "umumiy xotirasi" (Redux store) shakli
 export interface AppRootState {
-  homePage: HomePageState; // har sahifaning o'z bo'limi bor
+  homePage: HomePageState;
+  productsPage: ProductsPageState; //  — Products sahifasining xotira bo'limi
 }
 
 /** HOMEPAGE **/
-// Bosh sahifa xotirasida nimalar saqlanadi
 export interface HomePageState {
-  popularDishes: Product[]; // mashhur taomlar ro'yxati
-  newDishes: Product[]; // yangi taomlar ro'yxati
-  topUsers: Member[]; // eng faol foydalanuvchilar
+  popularDishes: Product[];
+  newDishes: Product[];
+  topUsers: Member[];
 }
 
-/** PRODUCTS PAGE **/ // ← bo'sh joy qoldirilgan, keyin to'ldiriladi
+/** PRODUCTS PAGE **/
+// — Products sahifasi xotirasida nimalar saqlanadi
+export interface ProductsPageState {
+  restaurant: Member | null; // restoran ma'lumoti (yuklanmagan bo'lsa null)
+  chosenProduct: Product | null; // tanlangan bitta mahsulot (tanlanmagan bo'lsa null)
+  products: Product[]; // ro'yxatdagi mahsulotlar
+}
+
 /** ORDERS PAGE **/
