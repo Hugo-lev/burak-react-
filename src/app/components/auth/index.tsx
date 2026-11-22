@@ -7,7 +7,7 @@ import { Fab, Stack, TextField } from "@mui/material";
 import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
 import { T } from "../../../lib/types/common";
-import { MemberInput } from "../../../lib/types/member";
+import { LoginInput, MemberInput } from "../../../lib/types/member";
 import MemberService from "../../services/MemberService";
 import { Messages } from "../../../lib/config";
 import {
@@ -84,15 +84,43 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       sweetTopSmallSuccessAlert("Signup successful!");
     } catch (err) {
       console.log(err);
+      // Saving Authenticated user
+
       handleSignupClose();
       sweetErrorHandling(err).then();
     }
   };
 
-  // Parol maydonida Enter bosilsa, Signup tugmasini bosgandek ishlaydi
+  const handleLoginRequest = async () => {
+    try {
+      const isFulfill = memberNick !== "" && memberPassword !== "";
+      if (!isFulfill) throw new Error(Messages.error3);
+
+      const loginInput: LoginInput = {
+        memberNick: memberNick,
+        memberPassword: memberPassword,
+      };
+
+      const member = new MemberService();
+      await member.login(loginInput);
+
+      handleLoginClose();
+      sweetTopSmallSuccessAlert("Login successful!");
+    } catch (err) {
+      console.log(err);
+      // Saving Authenticated user
+
+      handleLoginClose();
+      sweetErrorHandling(err).then();
+    }
+  };
+
+  // Parol maydonida Enter bosilsa, qaysi oyna ochiq bo'lsa o'sha tugmani bosgandek ishlaydi
   const handlePasswordKeyDown = (e: T) => {
     if (e.key === "Enter" && signupOpen) {
       handleSignupRequest().then();
+    } else if (e.key === "Enter" && loginOpen) {
+      handleLoginRequest().then();
     }
   };
   return (
@@ -194,11 +222,13 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                 variant={"outlined"}
                 type={"password"}
                 onChange={handlePassword}
+                onKeyDown={handlePasswordKeyDown}
               />
               <Fab
                 sx={{ marginTop: "27px", width: "120px" }}
                 variant={"extended"}
                 color={"primary"}
+                onClick={handleLoginRequest}
               >
                 <LoginIcon sx={{ mr: 1 }} />
                 Login
