@@ -14,6 +14,7 @@ import {
   sweetErrorHandling,
   sweetTopSmallSuccessAlert,
 } from "../../../lib/sweetAlert";
+import { useGlobals } from "../../hooks/useGlobals";
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -51,7 +52,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
   const [memberNick, setMemberNick] = useState<string>("");
   const [memberPhone, setMemberPhone] = useState<string>("");
   const [memberPassword, setMemberPassword] = useState<string>("");
-
+  const { setAuthMember } = useGlobals();
   /** HANDLERS **/
   const handleUsername = (e: T) => {
     setMemberNick(e.target.value);
@@ -78,8 +79,8 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       };
 
       const member = new MemberService();
-      await member.signup(signupInput);
-
+      const result = await member.signup(signupInput);
+      setAuthMember(result);
       handleSignupClose();
       sweetTopSmallSuccessAlert("Signup successful!");
     } catch (err) {
@@ -102,7 +103,8 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       };
 
       const member = new MemberService();
-      await member.login(loginInput);
+      const result = await member.login(loginInput);
+      setAuthMember(result);
 
       handleLoginClose();
       sweetTopSmallSuccessAlert("Login successful!");

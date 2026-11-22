@@ -66,6 +66,20 @@ class MemberService {
       throw err;
     }
   }
+
+  public async logout(): Promise<void> {
+    try {
+      const url = this.path + "/member/logout";
+      // withCredentials: backend qaysi foydalanuvchi chiqayotganini cookie'dagi tokendan biladi
+      const result = await axios.post(url, {}, { withCredentials: true });
+      console.log("logout:", result);
+
+      localStorage.removeItem("memberData");
+    } catch (err) {
+      console.log("Error, logout:", err);
+      throw err;
+    }
+  }
 }
 
 export default MemberService;
