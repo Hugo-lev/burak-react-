@@ -1,6 +1,6 @@
 import axios from "axios";
 import { serverApi } from "../../lib/config";
-import { Member } from "../../lib/types/member";
+import { Member, MemberInput } from "../../lib/types/member";
 
 class MemberService {
   private readonly path: string;
@@ -21,18 +21,32 @@ class MemberService {
       throw err;
     }
   }
-
-  // ✅ YANGI — Restoran haqida ma'lumot: nomi, telefoni (ChosenProduct da ko'rsatiladi)
   public async getRestaurant(): Promise<Member> {
     try {
-      const url = this.path + "/member/restaurant"; // backend: GET /member/restaurant
+      const url = this.path + "/member/restaurant";
       const result = await axios.get(url);
       console.log("getRestaurant:", result);
 
-      const restaurant: Member = result.data; // javobni Member turi deb belgilaymiz
+      const restaurant: Member = result.data;
       return restaurant;
     } catch (err) {
       console.log("Error, getRestaurant:", err);
+      throw err;
+    }
+  }
+
+  public async signup(input: MemberInput): Promise<Member> {
+    try {
+      const url = this.path + "/member/signup";
+      // withCredentials: backend qaytargan cookie (token) brauzerda saqlanishi uchun
+      const result = await axios.post(url, input, { withCredentials: true });
+      console.log("signup:", result);
+
+      const member: Member = result.data.member;
+      localStorage.setItem("memberData", JSON.stringify(member));
+      return member;
+    } catch (err) {
+      console.log("Error, signup:", err);
       throw err;
     }
   }
