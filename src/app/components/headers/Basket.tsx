@@ -8,42 +8,53 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useHistory } from "react-router-dom";
 import { CartItem } from "../../../lib/types/search";
-import { serverApi } from "../../../lib/config";
-// Savatcha komponentining qabul qiladigan xususiyatlari (props)
+import { Messages, serverApi } from "../../../lib/config";
+import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import OrderService from "../../services/OrderService";
+import { useGlobals } from "../../hooks/useGlobals";
 interface BasketProps {
-  cartItems: CartItem[]; // Savatdagi mahsulotlar ro'yxati
-  onAdd: (item: CartItem) => void; // Mahsulot sonini oshirish
-  onRemove: (item: CartItem) => void; // Mahsulot sonini kamaytirish
-  onDelete: (item: CartItem) => void; // Mahsulotni o'chirish
-  onDeleteAll: () => void; // Savatni butunlay tozalash
+  cartItems: CartItem[];
+  onAdd: (item: CartItem) => void;
+  onRemove: (item: CartItem) => void;
+  onDelete: (item: CartItem) => void;
+  onDeleteAll: () => void;
 }
-
-// Savatcha (popover menyu) komponenti
 export default function Basket(props: BasketProps) {
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
-  const authMember = null;
+  const { authMember, setOrderBuilder } = useGlobals();
   const history = useHistory();
-
-  // Savatchadagi umumiy mahsulotlar narxi hisobi
   const itemsPrice: number = cartItems.reduce(
     (a: number, c: CartItem) => a + c.quantity * c.price,
     0,
   );
-  // Yetkazib berish narxi ($100 dan oshsa bepul, aks holda $5)
   const shippingCost: number = itemsPrice < 100 ? 5 : 0;
-  // Umumiy yakuniy summa (mahsulotlar + yetkazib berish)
   const totalPrice = (itemsPrice + shippingCost).toFixed(1);
 
-  // Savatcha menyusi (dropdown) ochilishi uchun element state'i
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  /** HANDLERS (Hodisalar) **/
-  // Savat ikonkasi bosilganda menyuni ochish
+  const proceedOrderHandler = async () => {
+    try {
+      handleClose();
+      if (!authMember) throw new Error(Messages.error2);
+
+      const order = new OrderService();
+      await order.createOrder(cartItems);
+
+      onDeleteAll();
+
+      setOrderBuilder(new Date());
+      history.push("/orders");
+    } catch (err) {
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
+  };
+
+  /** HANDLERS **/
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
   };
-  // Menyuni yopish
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -154,7 +165,11 @@ export default function Basket(props: BasketProps) {
               <span className={"price"}>
                 Total: ${totalPrice} ({itemsPrice} + {shippingCost})
               </span>
-              <Button startIcon={<ShoppingCartIcon />} variant={"contained"}>
+              <Button
+                onClick={proceedOrderHandler}
+                startIcon={<ShoppingCartIcon />}
+                variant={"contained"}
+              >
                 Order
               </Button>
             </Box>

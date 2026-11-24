@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { OrdersPageState } from "../../../lib/types/screen";
 
+// Orders sahifasining boshlang'ich holati
 const initialState: OrdersPageState = {
   pausedOrders: [],
   processOrders: [],
   finishedOrders: [],
 };
 
+// Orders sahifasi uchun slice (Redux reducers)
 const ordersPageSlice = createSlice({
   name: "ordersPage",
   initialState,
@@ -23,8 +25,10 @@ const ordersPageSlice = createSlice({
   },
 });
 
+// Action larni export qilamiz
 export const { setPausedOrders, setProcessOrders, setFinishedOrders } =
   ordersPageSlice.actions;
 
+// Reducer ni export qilamiz
 const OrdersPageReducer = ordersPageSlice.reducer;
 export default OrdersPageReducer;
