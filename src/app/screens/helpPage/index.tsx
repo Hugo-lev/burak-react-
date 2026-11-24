@@ -13,10 +13,13 @@ import "../../../css/help.css";
 import { faq } from "../../../lib/data/faq";
 import { terms } from "../../../lib/data/terms";
 
+// Yordam sahifasi (HelpPage): Qoidalar (Terms), Ko'p beriladigan savollar (FAQ) va Bog'lanish (Contact)
 export default function HelpPage() {
+  // Tanlangan tab holati ("1": Qoidalar, "2": FAQ, "3": Aloqa)
   const [value, setValue] = React.useState("1");
 
   /** HANDLERS **/
+  // Tab almashtirilganda yangi tabni faollashtirish
   const handleChange = (e: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };

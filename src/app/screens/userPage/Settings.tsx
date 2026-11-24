@@ -2,11 +2,13 @@ import { Box } from "@mui/material";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import Button from "@mui/material/Button";
 
+// Foydalanuvchi ma'lumotlarini (rasm, ism, telefon, manzil, bio) o'zgartirish shakli
 export function Settings() {
   return (
     <Box className={"settings"}>
+      {/* Profil rasmini yuklash bo'limi */}
       <Box className={"member-media-frame"}>
-        <img src={"/icons/default-user.svg"} className={"mb-image"} />
+        <img src={"/icons/default-user.svg"} className={"mb-image"} alt="user" />
         <div className={"media-change-box"}>
           <span>Upload image</span>
           <p>JPG, JPEG, PNG formats only!</p>
@@ -18,6 +20,8 @@ export function Settings() {
           </div>
         </div>
       </Box>
+
+      {/* Username kiritish maydoni */}
       <Box className={"input-frame"}>
         <div className={"long-input"}>
           <label className={"spec-label"}>Username</label>
@@ -30,6 +34,8 @@ export function Settings() {
           />
         </div>
       </Box>
+
+      {/* Telefon raqami va Manzil kiritish maydonlari */}
       <Box className={"input-frame"}>
         <div className={"short-input"}>
           <label className={"spec-label"}>Phone</label>
@@ -52,6 +58,8 @@ export function Settings() {
           />
         </div>
       </Box>
+
+      {/* Qo'shimcha tavsif (bio) va Saqlash tugmasi */}
       <Box className={"input-frame"}>
         <div className={"long-input"}>
           <label className={"spec-label"}>Description</label>

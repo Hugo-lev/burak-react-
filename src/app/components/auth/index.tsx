@@ -45,15 +45,18 @@ interface AuthenticationModalProps {
   handleLoginClose: () => void;
 }
 
+// Ro'yxatdan o'tish (Signup) va Tizimga kirish (Login) modal oynalari komponenti
 export default function AuthenticationModal(props: AuthenticationModalProps) {
   const { signupOpen, loginOpen, handleSignupClose, handleLoginClose } = props;
   const classes = useStyles();
 
+  // Form inputlari qiymatlari uchun state'lar
   const [memberNick, setMemberNick] = useState<string>("");
   const [memberPhone, setMemberPhone] = useState<string>("");
   const [memberPassword, setMemberPassword] = useState<string>("");
   const { setAuthMember } = useGlobals();
-  /** HANDLERS **/
+
+  /** HANDLERS (Kiritish maydonlarini boshqarish) **/
   const handleUsername = (e: T) => {
     setMemberNick(e.target.value);
   };
@@ -66,8 +69,10 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
     setMemberPassword(e.target.value);
   };
 
+  // 1. Yangi foydalanuvchini ro'yxatdan o'tkazish so'rovi
   const handleSignupRequest = async () => {
     try {
+      // Maydonlar to'ldirilganligini tekshiramiz
       const isFulfill =
         memberNick !== "" && memberPhone !== "" && memberPassword !== "";
       if (!isFulfill) throw new Error(Messages.error3);
@@ -78,20 +83,20 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
         memberPassword: memberPassword,
       };
 
+      // Serverga so'rov yuborish
       const member = new MemberService();
       const result = await member.signup(signupInput);
-      setAuthMember(result);
-      handleSignupClose();
+      setAuthMember(result); // Global holatga saqlaymiz
+      handleSignupClose(); // Modalni yopamiz
       sweetTopSmallSuccessAlert("Signup successful!");
     } catch (err) {
       console.log(err);
-      // Saving Authenticated user
-
       handleSignupClose();
       sweetErrorHandling(err).then();
     }
   };
 
+  // 2. Mavjud foydalanuvchining login so'rovi
   const handleLoginRequest = async () => {
     try {
       const isFulfill = memberNick !== "" && memberPassword !== "";
@@ -104,20 +109,18 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
 
       const member = new MemberService();
       const result = await member.login(loginInput);
-      setAuthMember(result);
+      setAuthMember(result); // Global holatga saqlaymiz
 
-      handleLoginClose();
+      handleLoginClose(); // Modalni yopamiz
       sweetTopSmallSuccessAlert("Login successful!");
     } catch (err) {
       console.log(err);
-      // Saving Authenticated user
-
       handleLoginClose();
       sweetErrorHandling(err).then();
     }
   };
 
-  // Parol maydonida Enter bosilsa, qaysi oyna ochiq bo'lsa o'sha tugmani bosgandek ishlaydi
+  // Parol maydonida Enter bosilsa, mos ravishda signup yoki login so'rovini yuboradi
   const handlePasswordKeyDown = (e: T) => {
     if (e.key === "Enter" && signupOpen) {
       handleSignupRequest().then();

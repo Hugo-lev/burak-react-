@@ -1,10 +1,12 @@
 import { Member } from "./member";
+import { Order } from "./order";
 import { Product } from "./product";
 
 /** REACT APP STATE **/
 export interface AppRootState {
   homePage: HomePageState;
-  productsPage: ProductsPageState; //  — Products sahifasining xotira bo'limi
+  productsPage: ProductsPageState;
+  ordersPage: OrdersPageState;
 }
 
 /** HOMEPAGE **/
@@ -15,11 +17,15 @@ export interface HomePageState {
 }
 
 /** PRODUCTS PAGE **/
-// — Products sahifasi xotirasida nimalar saqlanadi
 export interface ProductsPageState {
-  restaurant: Member | null; // restoran ma'lumoti (yuklanmagan bo'lsa null)
-  chosenProduct: Product | null; // tanlangan bitta mahsulot (tanlanmagan bo'lsa null)
-  products: Product[]; // ro'yxatdagi mahsulotlar
+  restaurant: Member | null;
+  chosenProduct: Product | null;
+  products: Product[];
 }
 
 /** ORDERS PAGE **/
+export interface OrdersPageState {
+  pausedOrders: Order[];
+  processOrders: Order[];
+  finishedOrders: Order[];
+}

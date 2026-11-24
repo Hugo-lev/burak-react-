@@ -12,17 +12,23 @@ import { serverApi } from "../../../lib/config";
 import { Member } from "../../../lib/types/member";
 
 /** REDUX SLICE & SELECTOR **/
+// Redux STORE'dan topUsers (eng faol a'zolar) ro'yxatini ajratib oluvchi selektor
 const topUsersRetriever = createSelector(retrieveTopUsers, (topUsers) => ({
   topUsers,
 }));
+
+// Bosh sahifadagi eng faol foydalanuvchilar (Active Users) kartalarini ko'rsatuvchi komponent
 export default function ActiveUsers() {
+  // Redux store'dan topUsers holatini olamiz
   const { topUsers } = useSelector(topUsersRetriever);
+
   return (
     <div className="active-users-frame">
       <Container>
         <Stack className="main">
           <Box className="category-title">Active Users</Box>
           <Stack className="cards-frame">
+            {/* Foydalanuvchilar mavjud bo'lsa har biriga karta chizamiz, yo'q bo'lsa 'No Active Users' */}
             {topUsers.length !== 0 ? (
               topUsers.map((member: Member) => {
                 const imagePath = `${serverApi}/${member.memberImage}`;
@@ -30,7 +36,7 @@ export default function ActiveUsers() {
                   <CssVarsProvider key={member._id}>
                     <Card className={"card"}>
                       <CardCover>
-                        <img src={imagePath} alt="bu yerda member rasmi" />
+                        <img src={imagePath} alt={member.memberNick} />
                       </CardCover>
                       <CardCover className={"card-cover"} />
                       <CardContent />

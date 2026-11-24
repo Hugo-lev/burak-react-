@@ -3,8 +3,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import { plans } from "../../../lib/data/plans";
 
+// Swiper modullari: avtomatik o'tish (autoplay), navigatsiya (strelkalar) va paginatsiya (nuqtalar)
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
+// Bosh sahifadagi tadbirlar (Events / Master-klasslar) slayderi komponenti
 export default function Events() {
   return (
     <div className={"events-frame"}>
@@ -13,6 +15,7 @@ export default function Events() {
           <span className={"category-title"}>Events</span>
         </Box>
 
+        {/* Tadbirlar slayder karuseli */}
         <Swiper
           className={"events-info swiper-wrapper"}
           slidesPerView={"auto"}
@@ -31,11 +34,12 @@ export default function Events() {
             disableOnInteraction: true,
           }}
         >
+          {/* plans ma'lumotlar massividan har bir tadbirni aylantirib chizamiz */}
           {plans.map((value, number) => {
             return (
               <SwiperSlide key={number} className={"events-info-frame"}>
                 <div className={"events-img"}>
-                  <img src={value.img} className={"events-img"} />
+                  <img src={value.img} className={"events-img"} alt={value.title} />
                 </div>
                 <Box className={"events-desc"}>
                   <Box className={"events-bott"}>
@@ -43,7 +47,7 @@ export default function Events() {
                       <div className={"event-title-speaker"}>
                         <strong>{value.title}</strong>
                         <div className={"event-organizator"}>
-                          <img src={"/icons/speaker.svg"} />
+                          <img src={"/icons/speaker.svg"} alt="speaker" />
                           <p className={"spec-text-author"}>{value.author}</p>
                         </div>
                       </div>
@@ -52,11 +56,11 @@ export default function Events() {
 
                       <div className={"bott-info"}>
                         <div className={"bott-info-main"}>
-                          <img src={"/icons/calendar.svg"} />
+                          <img src={"/icons/calendar.svg"} alt="calendar" />
                           {value.date}
                         </div>
                         <div className={"bott-info-main"}>
-                          <img src={"/icons/location.svg"} />
+                          <img src={"/icons/location.svg"} alt="location" />
                           {value.location}
                         </div>
                       </div>

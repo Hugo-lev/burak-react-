@@ -11,6 +11,7 @@ const Footers = styled.div`
   background-size: cover;
 `;
 
+// Saytning quyi qismi (Footer) komponenti: manzil, ijtimoiy tarmoqlar va havolalar
 export default function Footer() {
   const authMember = null;
 
@@ -18,9 +19,10 @@ export default function Footer() {
     <Footers>
       <Container>
         <Stack direction={"row"} sx={{ mt: "94px" }}>
+          {/* Chap qism: Restoran haqida qisqacha ma'lumot va ijtimoiy tarmoqlar */}
           <Stack sx={{ flexDirection: "column", width: "340px" }}>
             <Box>
-              <img width={"100px"} src={"/icons/burak.svg"} />
+              <img width={"100px"} src={"/icons/burak.svg"} alt="burak logo" />
             </Box>
             <Box className={"foot-desc-txt"}>
               Focusing on the gourmet Turkish breakfast as well as the youth
@@ -28,12 +30,14 @@ export default function Footer() {
               Burak Gurme creates an illusion with its cuisine.
             </Box>
             <Box className="sns-context">
-              <img src={"/icons/facebook.svg"} />
-              <img src={"/icons/twitter.svg"} />
-              <img src={"/icons/instagram.svg"} />
-              <img src={"/icons/youtube.svg"} />
+              <img src={"/icons/facebook.svg"} alt="facebook" />
+              <img src={"/icons/twitter.svg"} alt="twitter" />
+              <img src={"/icons/instagram.svg"} alt="instagram" />
+              <img src={"/icons/youtube.svg"} alt="youtube" />
             </Box>
           </Stack>
+
+          {/* O'ng qism: Bo'limlar ro'yxati va Aloqa ma'lumotlari */}
           <Stack sx={{ ml: "288px", flexDirection: "row" }}>
             <Stack>
               <Box>
@@ -78,6 +82,8 @@ export default function Footer() {
             </Stack>
           </Stack>
         </Stack>
+
+        {/* Chiziq va Mualliflik huquqi (Copyright) */}
         <Stack
           style={{ border: "1px solid #C5C8C9", width: "100%", opacity: "0.2" }}
           sx={{ mt: "80px" }}

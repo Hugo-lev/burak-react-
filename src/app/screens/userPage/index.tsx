@@ -6,11 +6,13 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import { Settings } from "./Settings";
 import "../../../css/userPage.css";
 
+// Foydalanuvchining shaxsiy kabinet sahifasi (My Page / UserPage)
 export default function UserPage() {
   return (
     <div className={"user-page"}>
       <Container>
         <Stack className={"my-page-frame"}>
+          {/* Chap qism: Foydalanuvchi ma'lumotlarini tahrirlash (Settings) komponenti */}
           <Stack className={"my-page-left"}>
             <Box display={"flex"} flexDirection={"column"}>
               <Box className={"menu-name"}>Modify Member Details</Box>
@@ -20,6 +22,7 @@ export default function UserPage() {
             </Box>
           </Stack>
 
+          {/* O'ng qism: Foydalanuvchi profil kartasi va ijtimoiy tarmoqlar */}
           <Stack className={"my-page-right"}>
             <Box className={"order-info-box"}>
               <Box
@@ -31,9 +34,10 @@ export default function UserPage() {
                   <img
                     src={"/icons/default-user.svg"}
                     className={"order-user-avatar"}
+                    alt="user"
                   />
                   <div className={"order-user-icon-box"}>
-                    <img src={"/icons/user-badge.svg"} />
+                    <img src={"/icons/user-badge.svg"} alt="badge" />
                   </div>
                 </div>
                 <span className={"order-user-name"}>Martin</span>

@@ -9,31 +9,41 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useHistory } from "react-router-dom";
 import { CartItem } from "../../../lib/types/search";
 import { serverApi } from "../../../lib/config";
+// Savatcha komponentining qabul qiladigan xususiyatlari (props)
 interface BasketProps {
-  cartItems: CartItem[];
-  onAdd: (item: CartItem) => void;
-  onRemove: (item: CartItem) => void;
-  onDelete: (item: CartItem) => void;
-  onDeleteAll: () => void;
+  cartItems: CartItem[]; // Savatdagi mahsulotlar ro'yxati
+  onAdd: (item: CartItem) => void; // Mahsulot sonini oshirish
+  onRemove: (item: CartItem) => void; // Mahsulot sonini kamaytirish
+  onDelete: (item: CartItem) => void; // Mahsulotni o'chirish
+  onDeleteAll: () => void; // Savatni butunlay tozalash
 }
+
+// Savatcha (popover menyu) komponenti
 export default function Basket(props: BasketProps) {
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
   const authMember = null;
   const history = useHistory();
+
+  // Savatchadagi umumiy mahsulotlar narxi hisobi
   const itemsPrice: number = cartItems.reduce(
     (a: number, c: CartItem) => a + c.quantity * c.price,
     0,
   );
+  // Yetkazib berish narxi ($100 dan oshsa bepul, aks holda $5)
   const shippingCost: number = itemsPrice < 100 ? 5 : 0;
+  // Umumiy yakuniy summa (mahsulotlar + yetkazib berish)
   const totalPrice = (itemsPrice + shippingCost).toFixed(1);
 
+  // Savatcha menyusi (dropdown) ochilishi uchun element state'i
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  /** HANDLERS **/
+  /** HANDLERS (Hodisalar) **/
+  // Savat ikonkasi bosilganda menyuni ochish
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
   };
+  // Menyuni yopish
   const handleClose = () => {
     setAnchorEl(null);
   };

@@ -27,17 +27,21 @@ const brands = [
   { name: "Doner", imagePath: "/img/doner.webp" },
 ];
 /** REDUX SLICE & SELECTOR **/
+// Redux Store'ga mahsulotlar ro'yxatini yozuvchi dispatch aksiyasi
 const actionDispatch = (dispatch: Dispatch) => ({
   setProducts: (data: Product[]) => dispatch(setProducts(data)),
 });
 
+// Redux Store'dan yuklangan mahsulotlarni o'quvchi selektor
 const productsRetriever = createSelector(retrieveProducts, (products) => ({
   products,
 }));
+
 interface ProductsProps {
   onAdd: (item: CartItem) => void;
 }
 
+// Barcha mahsulotlar ro'yxati, toifalar (kategoriya), saralash, qidirish va sahifalash komponenti
 export default function Products(props: ProductsProps) {
   const { onAdd } = props;
   const [order, setOrder] = useState("New");
@@ -46,6 +50,8 @@ export default function Products(props: ProductsProps) {
   const { products } = useSelector(productsRetriever);
   const [searchText, setSearchText] = useState<string>("");
   const history = useHistory();
+
+  // Backendga yuboriladigan qidiruv va filtr parametrlari obyekti
   const [productSearch, setProductSearch] = useState<ProductInquiry>({
     page: 1,
     limit: 8,
@@ -54,6 +60,7 @@ export default function Products(props: ProductsProps) {
     search: "",
   });
 
+  // productSearch o'zgarganda (sahifa, toifa, saralash o'zgarsa) serverdan yangi ma'lumotlarni tortib olamiz
   useEffect(() => {
     const product = new ProductService();
     product
@@ -62,32 +69,44 @@ export default function Products(props: ProductsProps) {
       .catch((err) => console.log(err));
   }, [productSearch]);
 
+  // Qidiruv maydoni bo'shatilganda qidiruv filtrini tozalaymiz
   useEffect(() => {
     if (searchText === "") {
       productSearch.search = "";
       setProductSearch({ ...productSearch });
     }
   }, [searchText]);
-  /** HANDLERS **/
+
+  /** HANDLERS (Hodisalar boshqaruvchilari) **/
+
+  // Toifani (DISH, DRINK, DESSERT, SALAD va h.k.) o'zgartirish
   const searchCollectionHandler = (collection: ProductCollection) => {
     productSearch.page = 1;
     productSearch.productCollection = collection;
     setProductSearch({ ...productSearch });
   };
+
+  // Saralash tartibini (yangi, eng ko'p ko'rilgan, narx) o'zgartirish
   const searchOrderHandler = (order: string) => {
     productSearch.page = 1;
     productSearch.order = order;
     setProductSearch({ ...productSearch });
   };
+
+  // Qidiruv tugmasi bosilganda matn bo'yicha qidiruvni ishga tushirish
   const searchProductHandler = () => {
     productSearch.page = 1;
     productSearch.search = searchText;
     setProductSearch({ ...productSearch });
   };
+
+  // Paginatsiya: sahifa raqami o'zgarganda yangi sahifani yuklash
   const paginationHandler = (e: ChangeEvent<any>, value: number) => {
     productSearch.page = value;
     setProductSearch({ ...productSearch });
   };
+
+  // Muayyan taom bosilganda uning batafsil sahifasiga (/products/:id) o'tish
   const chooseDishHandler = (id: string) => {
     console.log("productId:", id);
     history.push(`/products/${id}`);

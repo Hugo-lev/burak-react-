@@ -24,11 +24,13 @@ import { serverApi } from "../../../lib/config";
 import { CartItem } from "../../../lib/types/search";
 
 /** REDUX SLICE & SELECTOR **/
+// Redux Store'ga restoran va tanlangan mahsulot ma'lumotlarini yuklash dispatch funksiyalari
 const actionDispatch = (dispatch: Dispatch) => ({
   setRestaurant: (data: Member) => dispatch(setRestaurant(data)),
   setChosenProduct: (data: Product) => dispatch(setChosenProduct(data)),
 });
 
+// Redux Store'dan tanlangan mahsulotni o'quvchi selektor
 const chosenProductRetriever = createSelector(
   retrieveChosenProduct,
   (chosenProduct) => ({
@@ -36,17 +38,22 @@ const chosenProductRetriever = createSelector(
   }),
 );
 
+// Redux Store'dan restoran ma'lumotlarini o'quvchi selektor
 const restaurantRetriever = createSelector(
   retrieveRestaurant,
   (restaurant) => ({
     restaurant,
   }),
 );
+
 interface ChosenProductProps {
   onAdd: (item: CartItem) => void;
 }
+
+// Bitta tanlangan taomning batafsil sahifasi (rasmlar galereyasi, narxi, tavsifi va savatga qo'shish)
 export default function ChosenProduct(props: ChosenProductProps) {
   const { onAdd } = props;
+  // URL parametridan productId ni ajratib olamiz (masalan: /products/65449af8...)
   const { productId } = useParams<{ productId: string }>();
   const { setRestaurant, setChosenProduct } = actionDispatch(useDispatch());
   const { chosenProduct } = useSelector(chosenProductRetriever);
@@ -54,19 +61,24 @@ export default function ChosenProduct(props: ChosenProductProps) {
 
   console.log("productId:", productId);
 
+  // Sahifa yuklanganda mahsulot va restoran ma'lumotlarini backenddan tortib olamiz
   useEffect(() => {
+    // 1. Mahsulot tafsilotlarini yuklash
     const product = new ProductService();
     product
       .getProduct(productId)
       .then((data) => setChosenProduct(data))
       .catch((err) => console.log(err));
 
+    // 2. Restoran ma'lumotlarini yuklash
     const member = new MemberService();
     member
       .getRestaurant()
       .then((data) => setRestaurant(data))
       .catch((err) => console.log(err));
   }, []);
+
+  // Ma'lumot hali kelmagan bo'lsa bo'sh qaytaramiz
   if (!chosenProduct) return null;
   return (
     <div className={"chosen-product"}>

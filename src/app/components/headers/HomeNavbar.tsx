@@ -14,20 +14,32 @@ import { useEffect, useState } from "react";
 import { CartItem } from "../../../lib/types/search";
 import { useGlobals } from "../../hooks/useGlobals";
 import { serverApi } from "../../../lib/config";
+// 1. HomeNavbarProps interfeysi — ota komponentdan (App.tsx) qanday ma'lumotlar (props)
+// va funksiyalar kelishi shartligini belgilovchi TypeScript shartnomasi
 interface HomeNavbarProps {
-  cartItems: CartItem[];
-  onAdd: (item: CartItem) => void;
-  onRemove: (item: CartItem) => void;
-  onDelete: (item: CartItem) => void;
-  onDeleteAll: () => void;
-  setSignupOpen: (isOpen: boolean) => void;
-  setLoginOpen: (isOpen: boolean) => void;
-  anchorEl: HTMLElement | null;
-  handleLogoutClick: (e: React.MouseEvent<HTMLElement>) => void;
-  handleCloseLogout: () => void;
-  handleLogoutRequest: () => void;
+  // Savatcha (Cart) amallari va ma'lumotlari:
+  cartItems: CartItem[]; // Savatdagi mahsulotlar ro'yxati
+  onAdd: (item: CartItem) => void; // Mahsulot qo'shish yoki sonini oshirish (+1)
+  onRemove: (item: CartItem) => void; // Mahsulot sonini kamaytirish (-1)
+  onDelete: (item: CartItem) => void; // Muayyan mahsulotni savatdan butunlay o'chirish
+  onDeleteAll: () => void; // Savatni butunlay tozalash
+
+  // Modal oynalarni ochish/yopish boshqaruvi:
+  setSignupOpen: (isOpen: boolean) => void; // Ro'yxatdan o'tish (signup) oynasini ochish
+  setLoginOpen: (isOpen: boolean) => void; // Tizimga kirish (login) oynasini ochish
+
+  // Chiqish (Logout) menyusi boshqaruvi:
+  anchorEl: HTMLElement | null; // Profil menyusi qaysi tugmaga birikishini belgilovchi element
+  handleLogoutClick: (e: React.MouseEvent<HTMLElement>) => void; // Profil bosilganda menyuni ochish
+  handleCloseLogout: () => void; // Menyuni yopish
+  handleLogoutRequest: () => void; // Tizimdan chiqish (logout) so'rovini yuborish
 }
+
+// 2. Bosh sahifa uchun Navbar komponenti:
+// props parametri orqali yuqoridagi HomeNavbarProps turiga mos keluvchi barcha ma'lumotlarni qabul qiladi
 export default function HomeNavbar(props: HomeNavbarProps) {
+  // 3. Destructuring (ajratib olish): props ichidagi barcha ma'lumot va funksiyalarni
+  // alohida o'zgaruvchi qilib olamiz, toki pastda "props.cartItems" emas, to'g'ridan-to'g'ri "cartItems" deb yozish mumkin bo'lsin
   const {
     cartItems,
     onAdd,
@@ -40,21 +52,23 @@ export default function HomeNavbar(props: HomeNavbarProps) {
     handleLogoutClick,
     handleCloseLogout,
     handleLogoutRequest,
-    //4126
   } = props;
+  // Global foydalanuvchi ma'lumoti
   const { authMember } = useGlobals();
 
   return (
     <div className="home-navbar">
       <Container className="navbar-container">
         <Stack className="menu">
+          {/* Restoran logotipi */}
           <Box>
             <NavLink to="/">
-              <img className="brand-logo" src="/icons/burak.svg" />
+              <img className="brand-logo" src="/icons/burak.svg" alt="logo" />
             </NavLink>
           </Box>
+
+          {/* Menyu havolalari (Links) */}
           <Stack className="links">
-            {" "}
             <Box className="hover-line">
               <NavLink to="/" activeClassName={"underline"}>
                 Home
@@ -65,6 +79,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                 Products
               </NavLink>
             </Box>
+            {/* Faqat login bo'lgan a'zolarga Orders va My Page ko'rinadi */}
             {authMember ? (
               <Box className="hover-line">
                 <NavLink to="/orders" activeClassName={"underline"}>
@@ -84,6 +99,8 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                 Help
               </NavLink>
             </Box>
+
+            {/* Savatcha (Basket) komponenti */}
             <Basket
               cartItems={cartItems}
               onAdd={onAdd}
@@ -91,6 +108,8 @@ export default function HomeNavbar(props: HomeNavbarProps) {
               onDelete={onDelete}
               onDeleteAll={onDeleteAll}
             />
+
+            {/* Agar login bo'lmagan bo'lsa 'Login' tugmasi, login bo'lsa user rasmi chiqadi */}
             {!authMember ? (
               <Box>
                 <Button
@@ -111,8 +130,11 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                 }
                 aria-haspopup={"true"}
                 onClick={handleLogoutClick}
+                alt="user avatar"
               />
             )}
+
+            {/* Profil bosilganda ochiladigan Logout menyusi */}
             <Menu
               id="account-menu"
               anchorEl={anchorEl}
@@ -157,6 +179,8 @@ export default function HomeNavbar(props: HomeNavbarProps) {
             </Menu>
           </Stack>
         </Stack>
+
+        {/* Bosh sahifa Hero banner qismi */}
         <Stack className={"header-frame"}>
           <Stack className={"detail"}>
             <Box className={"head-main-txt"}>
@@ -165,6 +189,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
             <Box className={"wel-txt"}>The Choice, not just a choice</Box>
             <Box className={"service-txt"}> 24/7 hours service</Box>
             <Box className={"signup"}>
+              {/* User login bo'lmagan bo'lsa Ro'yxatdan o'tish (Sign up) tugmasi */}
               {!authMember ? (
                 <Button
                   variant={"contained"}

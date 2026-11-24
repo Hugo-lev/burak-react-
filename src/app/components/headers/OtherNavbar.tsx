@@ -26,6 +26,7 @@ interface OtherNavbarProps {
   handleCloseLogout: () => void;
   handleLogoutRequest: () => void;
 }
+// Boshqa barcha sahifalar (Products, Orders, User, Help) uchun ixcham Navbar komponenti
 export default function OtherNavbar(props: OtherNavbarProps) {
   const {
     cartItems,
@@ -40,18 +41,22 @@ export default function OtherNavbar(props: OtherNavbarProps) {
     handleCloseLogout,
     handleLogoutRequest,
   } = props;
+  // Global foydalanuvchi konteksti
   const { authMember } = useGlobals();
+
   return (
     <div className="other-navbar">
       <Container className="navbar-container">
         <Stack className="menu">
+          {/* Sayt logotipi */}
           <Box>
             <NavLink to="/">
-              <img className="brand-logo" src="/icons/burak.svg" />
+              <img className="brand-logo" src="/icons/burak.svg" alt="logo" />
             </NavLink>
           </Box>
+
+          {/* Menyu havolalari */}
           <Stack className="links">
-            {" "}
             <Box className="hover-line">
               <NavLink to="/">Home</NavLink>
             </Box>
@@ -60,6 +65,7 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                 Products
               </NavLink>
             </Box>
+            {/* Faqat login bo'lgan a'zolarga ko'rinuvchi sahifalar */}
             {authMember ? (
               <Box className="hover-line">
                 <NavLink to="/orders" activeClassName={"underline"}>
@@ -79,6 +85,8 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                 Help
               </NavLink>
             </Box>
+
+            {/* Savatcha (Basket) komponenti */}
             <Basket
               cartItems={cartItems}
               onAdd={onAdd}
@@ -86,6 +94,8 @@ export default function OtherNavbar(props: OtherNavbarProps) {
               onDelete={onDelete}
               onDeleteAll={onDeleteAll}
             />
+
+            {/* Login tugmasi yoki profil rasmi */}
             {!authMember ? (
               <Box>
                 <Button
@@ -106,8 +116,11 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                 }
                 aria-haspopup={"true"}
                 onClick={handleLogoutClick}
+                alt="user avatar"
               />
             )}
+
+            {/* Logout menyusi */}
             <Menu
               id="account-menu"
               anchorEl={anchorEl}
