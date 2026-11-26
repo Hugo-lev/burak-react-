@@ -2,6 +2,8 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import HomePageReducer from "./screens/homePage/slice";
 import reduxLogger from "redux-logger";
 import ProductsPageReducer from "./screens/productsPage/slice";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Order } from "../lib/types/order";
 import OrdersPageReducer from "./screens/ordersPage/slice";
 
 export const store = configureStore({

@@ -18,6 +18,8 @@ import { Order, OrderInquiry } from "../../../lib/types/order";
 import { OrderStatus } from "../../../lib/enums/order.enum";
 import OrderService from "../../services/OrderService";
 import { useGlobals } from "../../hooks/useGlobals";
+import { useHistory } from "react-router-dom";
+import { serverApi } from "../../../lib/config";
 
 /** REDUX SLICE & SELECTOR **/
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -29,7 +31,8 @@ const actionDispatch = (dispatch: Dispatch) => ({
 export default function OrdersPage() {
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());
-  const { orderBuilder } = useGlobals();
+  const { orderBuilder, authMember } = useGlobals();
+  const history = useHistory();
   const [value, setValue] = useState("1");
 
   const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
@@ -62,6 +65,7 @@ export default function OrdersPage() {
     setValue(newValue);
   };
 
+  if (!authMember) history.push("/");
   return (
     <div className="order-page">
       <Container className="order-container">
@@ -95,19 +99,25 @@ export default function OrdersPage() {
           <Box className="order-info-box member-box">
             <Box className="order-user-img">
               <img
-                src="/icons/default-user.svg"
+                src={
+                  authMember?.memberImage
+                    ? `${serverApi}/${authMember.memberImage}`
+                    : "/icons/default-user.svg"
+                }
                 className="order-user-avatar"
                 alt="User avatar"
               />
             </Box>
 
-            <div className="order-user-name">Martin</div>
-            <div className="order-user-prof">User</div>
+            <div className="order-user-name">{authMember?.memberNick}</div>
+            <div className="order-user-prof">{authMember?.memberType}</div>
 
             <div className="order-user-address">
               <LocationOnIcon className="order-location-icon" />
               <span className="spec-address-txt">
-                123 Main Street, New York, NY 10001
+                {authMember?.memberAddress
+                  ? authMember.memberAddress
+                  : "no address"}
               </span>
             </div>
           </Box>
